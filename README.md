@@ -19,6 +19,7 @@ dependencies {
 	implementation 'com.github.WalletConnect:kotlin-walletconnect-lib:0.9.6'
 }
 ```
+
 Metamask app should be installed in your mobile
 
 ### [Demo video](https://drive.google.com/file/d/155bcLuPZk2aH5liomGnb37d3gIF3VAhN/view?usp=sharing)

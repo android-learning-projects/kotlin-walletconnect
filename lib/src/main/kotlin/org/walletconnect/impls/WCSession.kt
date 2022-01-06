@@ -8,12 +8,12 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 class WCSession(
-        private val config: Session.FullyQualifiedConfig,
-        private val payloadAdapter: Session.PayloadAdapter,
-        private val sessionStore: WCSessionStore,
-        transportBuilder: Session.Transport.Builder,
-        clientMeta: Session.PeerMeta,
-        clientId: String? = null
+    private val config: Session.Config,
+    private val payloadAdapter: Session.PayloadAdapter,
+    private val sessionStore: WCSessionStore,
+    transportBuilder: Session.Transport.Builder,
+    clientMeta: Session.PeerMeta,
+    clientId: String? = null
 ) : Session {
 
     private val keyLock = Any()
@@ -37,12 +37,12 @@ class WCSession(
         get() = currentKey
 
     // Non-persisted state
-    private val transport = transportBuilder.build(config.bridge, ::handleStatus, ::handleMessage)
+    private val transport = transportBuilder.build(config.bridge!!, ::handleStatus, ::handleMessage)
     private val requests: MutableMap<Long, (Session.MethodCall.Response) -> Unit> = ConcurrentHashMap()
     private val sessionCallbacks: MutableSet<Session.Callback> = Collections.newSetFromMap(ConcurrentHashMap<Session.Callback, Boolean>())
 
     init {
-        currentKey = config.key
+        currentKey = config.key.toString()
         clientData = sessionStore.load(config.handshakeTopic)?.let {
             currentKey = it.currentKey
             approvedAccounts = it.approvedAccounts
@@ -298,12 +298,12 @@ interface WCSessionStore {
     fun list(): List<State>
 
     data class State(
-            val config: Session.FullyQualifiedConfig,
-            val clientData: Session.PeerData,
-            val peerData: Session.PeerData?,
-            val handshakeId: Long?,
-            val currentKey: String,
-            val approvedAccounts: List<String>?,
-            val chainId: Long?
+        val config: Session.Config,
+        val clientData: Session.PeerData,
+        val peerData: Session.PeerData?,
+        val handshakeId: Long?,
+        val currentKey: String,
+        val approvedAccounts: List<String>?,
+        val chainId: Long?
     )
 }

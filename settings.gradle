@@ -1,2 +1,3 @@
 include ':lib' //, ':sample:app'
+include ':app' //, ':sample:app'
 

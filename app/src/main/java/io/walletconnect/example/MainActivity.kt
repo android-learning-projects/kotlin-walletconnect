@@ -5,6 +5,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.screen_main.*
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +16,12 @@ import org.walletconnect.nullOnThrow
 
 class MainActivity : Activity(), Session.Callback {
 
+    val TAG = "MainActivity"
     private var txRequest: Long? = null
     private val uiScope = CoroutineScope(Dispatchers.Main)
 
     override fun onStatus(status: Session.Status) {
+        Log.d(TAG, "onStatus: ${status}")
         when(status) {
             Session.Status.Approved -> sessionApproved()
             Session.Status.Closed -> sessionClosed()

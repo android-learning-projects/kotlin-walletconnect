@@ -2,7 +2,6 @@ package org.walletconnect
 
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
-import org.junit.Test
 import org.walletconnect.impls.FileWCSessionStore
 import org.walletconnect.impls.MoshiPayloadAdapter
 import org.walletconnect.impls.OkHttpTransport

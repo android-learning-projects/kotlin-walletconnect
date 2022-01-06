@@ -1,7 +1,0 @@
-{
-  "type": "lib",
-  "stages": [
-    {"name": "test" },
-    {"name": "build" }
-  ]
-}

@@ -66,6 +66,8 @@ class MainActivity : Activity(), Session.Callback {
             ExampleApplication.session.addCallback(this)
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(ExampleApplication.config.toWCUri())
+
+            Log.d(TAG, "onStart:url ${ExampleApplication.config.toWCUri()}")
             startActivity(i)
         }
         screen_main_disconnect_button.setOnClickListener {
